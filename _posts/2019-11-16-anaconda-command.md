@@ -11,7 +11,7 @@ categories: IT
 
 작업 환경 이름은 -n 옵션으로 설정하고, python 버전은 python= 뒤에 숫자로 쓴다. 그 뒤에 인자들은 설치할 모듈들의 이름이다.
 ```bash
-$ conda create -n myenv python=3 numpy scipy matplotlib pandas seaborn
+$ conda create -n myenv python=3.7 numpy scipy matplotlib pandas seaborn
 ```
 
 #### 가상 환경 목록 확인
