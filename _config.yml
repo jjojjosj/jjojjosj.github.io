@@ -54,6 +54,14 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/jjojjosj"
+
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
 defaults:
   # _posts
   - scope:
@@ -64,10 +72,3 @@ defaults:
       read_time: true
       comments: true
       related: true
-
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
