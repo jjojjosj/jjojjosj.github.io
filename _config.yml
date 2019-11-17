@@ -64,6 +64,7 @@ defaults:
       read_time: true
       comments: true
       related: true
+
 category_archive:
   type: liquid
   path: /categories/
