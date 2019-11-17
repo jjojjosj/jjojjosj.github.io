@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   jjojjosj의 길고도 짧은 소소한 이야기들.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: 
+twitter_username:
 github_username:  jjojjosj
 
 # Build settings
@@ -64,3 +64,9 @@ defaults:
       read_time: true
       comments: true
       related: true
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
