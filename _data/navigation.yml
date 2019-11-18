@@ -6,6 +6,8 @@ main:
     url: /about/
   - title: "Category"
     url: /categories/
+  - title: "Tags"
+    url: /tags/
 
     #- title: "Posts"
     #url: /posts/
