@@ -62,6 +62,10 @@ tag_archive:
   type: liquid
   path: /tags/
 
+# Reading Files
+include:
+  - _pages
+
 defaults:
   # _posts
   - scope:
