@@ -10,4 +10,8 @@ categories: [IT]
 
 해당 프로젝트는 아래의 사이트에서 만나볼 수 있다.
 
-https://foldingathome.org/covid19/
+<https://foldingathome.org/covid19/>
+
+또한 nvidia에서 해당 내용에 대한 포스트가 있다. 
+
+<https://blogs.nvidia.co.kr/2020/04/03/foldinghome-gpu-accelerated-exaflop/>
