@@ -1,7 +1,7 @@
 ---
 title: "자료구조와 알고리즘"
-date: 2020-12-06 09:05:00 # date: 2020-12-31 23:59:59
-categories: [Python] # [IT], [life], [Python]
+date: 2020-12-06 09:05:00
+categories: [Python]
 ---
 
 ## 파이썬 기반으로 자료구조와 알고리즘 공부
