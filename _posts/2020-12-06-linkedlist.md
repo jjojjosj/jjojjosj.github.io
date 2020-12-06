@@ -44,7 +44,7 @@ categories: [Python] # [IT], [life], [Python]
 
 ![노드 이미지](/assets/img/node.png )
 
-```{python}
+```python
 class Node():
     def __init__(self, data):
         self.data = data
@@ -53,7 +53,7 @@ class Node():
 
 그리고 이 노드들을 연결하는 클래스를 만든다.
 ![연결리스트 이미지](/assets/img/linkedlist.png )
-```{python}
+```python
 class LinkedList():
     def __init__(self):
         self.head = None
@@ -99,7 +99,7 @@ class LinkedList():
 
 마지막으로 이를 구동할 메인함수를 만들어보자
 
-```{python}
+```python
 if __name__ == '__main__':
     myll = LinkedList()
     myll.append(Node('a'))
