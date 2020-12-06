@@ -49,6 +49,8 @@ paginate_path: /page:num/
 search: true
 author:
   name : "jjojjosj"
+  avatar: "/assets/img/user.png"
+  bio : 개발을 취미(목표)로 하는 인프라 엔지니어
   location: "Somewhere, South Korea"
   links:
     - label: "GitHub"
