@@ -1,6 +1,6 @@
 ---
 title: "연결 리스트(Linked list)"
-date: 2020-12-06 11:10:00
+date: 2020-12-06 11:10:00 +0900
 categories: [Python]
 ---
 
