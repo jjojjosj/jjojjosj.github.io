@@ -1,5 +1,5 @@
 ---
-title: "연결리스트"
+title: "연결 리스트(Linked list)"
 date: 2020-12-06 11:10:00 # date: 2020-12-31 23:59:59
 categories: [Python] # [IT], [life], [Python]
 ---
