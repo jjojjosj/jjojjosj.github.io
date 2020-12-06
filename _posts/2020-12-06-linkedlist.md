@@ -22,7 +22,7 @@ categories: [Python] # [IT], [life], [Python]
 * 중복된 데이터의 저장이 가능
 * 데이터에 순서가 있음. 수정가능한 객체임
 
-```{python}
+```python
 >>> [1, 2, 'a']
 [1, 2, 'a']
 >>> myvar = [1, 2, 'a']
