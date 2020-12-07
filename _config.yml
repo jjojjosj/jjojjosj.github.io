@@ -23,7 +23,10 @@ twitter_username:
 github_username:  jjojjosj
 
 timezone: Asia/Seoul
-
+comments: 
+  provider: "disqus"
+  disqus:
+    shortname : "jjojjosj-github-io"
 # Build settings
 markdown: kramdown
 theme: minimal-mistakes-jekyll
