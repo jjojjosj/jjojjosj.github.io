@@ -2,6 +2,8 @@
 title: "블로그에 댓글 기능 추가 성공"
 date: 2020-12-07 21:10:00 +0900
 categories: [life]
+toc: true
+toc_sticky: true
 toc_label: "My Table of Contents"
 ---
 
