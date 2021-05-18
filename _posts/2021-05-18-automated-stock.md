@@ -33,7 +33,7 @@ CYBOS API 는 32bit 파이썬을 관리자 권한 모드로 실행해야만 한�
 
 모두 설치하고 CYBOS plus에 로그인한 뒤, 파이썬 쪽에서는 win32com.client 모듈을 사용하기 위해서 다음의 명령어를 입력한다.
 
-```{bash}
+```bash
 pip install pywin32
 ```
 
