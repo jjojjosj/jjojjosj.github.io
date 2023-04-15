@@ -5,7 +5,7 @@ categories: [IT]
 toc: true
 toc_sticky: true
 toc_label: "My Table of Contents"
-tag: [bug, minimal-mistakes]
+tags: [bug, minimal-mistakes]
 ---
 
 ## 블로그 버그 발견
