@@ -1,0 +1,7 @@
+---
+layout: "posts"
+title:  "1st-post"
+date:   2019-01-12 20:52:24 +0900
+categories: life
+---
+첫번째로 쓰는 포스트. 제대로 작동하는건지 잘 모르겠다.
