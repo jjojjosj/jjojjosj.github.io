@@ -56,10 +56,39 @@ export default function SearchPage() {
     setIsLoading(true);
 
     try {
-      const searchResults = searchIndex.search(searchQuery);
-      const foundPosts = searchResults
-        .map(result => posts.find(p => p.slug === result.ref))
-        .filter((p): p is PostMeta => p !== undefined);
+      // Try Lunr search first with wildcard for better matching
+      let searchResults;
+      try {
+        // Add wildcard for partial matching
+        const wildcardQuery = searchQuery
+          .split(/\s+/)
+          .map(term => `*${term}*`)
+          .join(' ');
+        searchResults = searchIndex.search(wildcardQuery);
+      } catch {
+        // Fallback to exact match if wildcard fails
+        searchResults = searchIndex.search(searchQuery);
+      }
+
+      // If Lunr search returns no results, fallback to simple text matching for Korean
+      let foundPosts;
+      if (searchResults.length === 0) {
+        const lowerQuery = searchQuery.toLowerCase();
+        foundPosts = posts.filter(post => {
+          const searchableText = [
+            post.title,
+            post.excerpt || '',
+            Array.isArray(post.categories) ? post.categories.join(' ') : post.categories || '',
+            post.tags?.join(' ') || '',
+          ].join(' ').toLowerCase();
+
+          return searchableText.includes(lowerQuery);
+        });
+      } else {
+        foundPosts = searchResults
+          .map(result => posts.find(p => p.slug === result.ref))
+          .filter((p): p is PostMeta => p !== undefined);
+      }
 
       setResults(foundPosts);
     } catch (error) {
