@@ -1,10 +1,22 @@
 # Claude.md
 
+# Development Workflow
+
+**Always use bun, not npm.**
+
+Here are the specific commands:
+
+1. Install dependencies: `bun install`
+2. Run the development server: `bun run dev`
+3. Run tests: `bun run test`
+4. Typecheck: `bun run typecheck`
+
 ## 프로젝트 개요
 
 이 프로젝트는 Next.js를 사용하는 개인 블로그입니다. (Jekyll에서 마이그레이션됨)
 
 ### 기술 스택
+
 - **프레임워크**: Next.js 16.1.1 (App Router)
 - **언어**: TypeScript
 - **스타일링**: Tailwind CSS 4.0
@@ -15,12 +27,14 @@
 - **배포**: Static Export (GitHub Pages)
 
 ### 사이트 정보
+
 - **제목**: jjojjosj의 일상다반사
 - **설명**: jjojjosj의 길고도 짧은 소소한 이야기들
 - **URL**: https://jjojjosj.github.io
 - **타임존**: Asia/Seoul
 
 ### 주요 라이브러리
+
 - **Markdown**: remark, remark-gfm, remark-rehype
 - **HTML 처리**: rehype-slug, rehype-highlight, rehype-autolink-headings, rehype-stringify
 - **유틸리티**: date-fns (날짜 포맷), reading-time (읽기 시간 계산)
@@ -28,6 +42,7 @@
 - **Sitemap**: next-sitemap
 
 ### 디렉토리 구조
+
 ```
 .
 ├── src/
@@ -65,6 +80,7 @@
 ```
 
 ### 핵심 기능
+
 - **정적 사이트 생성 (SSG)**: 모든 페이지를 빌드 타임에 사전 렌더링
 - **페이지네이션**: 페이지당 5개 포스트
 - **검색 기능**: Lunr.js를 사용한 클라이언트 사이드 전체 텍스트 검색
@@ -79,6 +95,7 @@
 - **Sitemap & RSS**: SEO 최적화
 
 ### 작성자 정보
+
 - **이름**: jjojjosj
 - **소개**: 개발을 취미(목표)로 하는 인프라 엔지니어
 - **위치**: Somewhere, South Korea
@@ -87,34 +104,41 @@
 ### 로컬 개발 환경
 
 #### 개발 서버 실행
+
 ```bash
 npm install
 npm run dev
 ```
+
 http://localhost:3000 에서 확인
 
 #### 프로덕션 빌드
+
 ```bash
 npm run build
 npm start
 ```
 
 #### 테스트 실행
+
 ```bash
 npm test                # Playwright E2E 테스트
 npm run test:ui        # UI 모드로 테스트
 ```
 
 ### Git 관리
+
 - **현재 브랜치**: nextjs-migration
 - **메인 브랜치**: master
 
 ### 배포
+
 - **플랫폼**: GitHub Pages
 - **방식**: GitHub Actions를 통한 자동 빌드 및 배포
 - **출력 디렉토리**: `out/` (Next.js static export)
 
 ### 주의사항
+
 - 새 포스트는 `src/content/posts/` 디렉토리에 Markdown 형식으로 작성
 - 이미지는 `public/assets/images/` 디렉토리에 저장
 - 포스트 파일명 형식: `YYYY-MM-DD-title.md`
