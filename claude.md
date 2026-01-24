@@ -106,8 +106,8 @@ Here are the specific commands:
 #### 개발 서버 실행
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 http://localhost:3000 에서 확인
@@ -115,15 +115,15 @@ http://localhost:3000 에서 확인
 #### 프로덕션 빌드
 
 ```bash
-npm run build
-npm start
+bun run build
+bun start
 ```
 
 #### 테스트 실행
 
 ```bash
-npm test                # Playwright E2E 테스트
-npm run test:ui        # UI 모드로 테스트
+bun run test                # Playwright E2E 테스트
+bun run test:ui        # UI 모드로 테스트
 ```
 
 ### Git 관리
