@@ -35,10 +35,10 @@
 
 ```bash
 # 의존성 설치
-npm install
+bun install
 
 # 개발 서버 실행
-npm run dev
+bun run dev
 ```
 
 브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
@@ -47,10 +47,10 @@ npm run dev
 
 ```bash
 # 정적 사이트 빌드
-npm run build
+bun run build
 
 # 빌드된 사이트 미리보기
-npm start
+bun start
 ```
 
 빌드 결과물은 `out/` 디렉토리에 생성됩니다.
@@ -59,10 +59,10 @@ npm start
 
 ```bash
 # E2E 테스트 실행
-npm test
+bun test
 
 # UI 모드로 테스트
-npm run test:ui
+bun run test:ui
 ```
 
 ## 프로젝트 구조
