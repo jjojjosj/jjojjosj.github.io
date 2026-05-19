@@ -12,12 +12,17 @@
     "test:debug": "playwright test --debug"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "brace-expansion": "^1.1.13",
     "date-fns": "^4.1.0",
     "disqus-react": "^1.1.7",
     "feed": "^5.2.0",
+    "flatted": "^3.4.2",
     "gray-matter": "^4.0.3",
     "lunr": "^2.3.9",
+    "minimatch": "^3.1.5",
     "next": "^16.2.2",
+    "picomatch": "^2.3.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "reading-time": "^1.5.0",
@@ -28,11 +33,7 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
-    "remark-rehype": "^11.1.2",
-    "minimatch": "^3.1.5",
-    "flatted": "^3.4.2",
-    "picomatch": "^2.3.2",
-    "brace-expansion": "^1.1.13"
+    "remark-rehype": "^11.1.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
