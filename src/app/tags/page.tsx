@@ -17,7 +17,7 @@ export default function TagsPage() {
         {tags.map(tag => (
           <Link
             key={tag.name}
-            href={`/tags/${tag.name}`}
+            href={`/tags/${encodeURIComponent(tag.name)}`}
             className="px-6 py-3 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-900 hover:text-emerald-600"
           >
             <span className="font-semibold">{tag.name}</span>

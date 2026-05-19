@@ -46,7 +46,7 @@ export default function PostCard({ post }: PostCardProps) {
           {post.tags.map(tag => (
             <Link
               key={tag}
-              href={`/tags/${tag}`}
+              href={`/tags/${encodeURIComponent(tag)}`}
               className="text-sm text-gray-600 hover:text-emerald-600 transition"
             >
               #{tag}

@@ -87,7 +87,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {post.tags.map(tag => (
                   <Link
                     key={tag}
-                    href={`/tags/${tag}`}
+                    href={`/tags/${encodeURIComponent(tag)}`}
                     className="text-sm text-gray-600 hover:text-emerald-600 transition"
                   >
                     #{tag}

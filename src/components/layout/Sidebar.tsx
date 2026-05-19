@@ -65,7 +65,7 @@ export default function Sidebar() {
           {tags.map(tag => (
             <Link
               key={tag.name}
-              href={`/tags/${tag.name}`}
+              href={`/tags/${encodeURIComponent(tag.name)}`}
               className="px-3 py-1 bg-gray-100 hover:bg-emerald-100 text-gray-700 hover:text-emerald-700 rounded-full text-sm transition"
             >
               {tag.name} ({tag.count})
