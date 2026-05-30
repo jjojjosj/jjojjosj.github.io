@@ -54,15 +54,15 @@ export default async function PostPage({ params }: PostPageProps) {
   const relatedPosts = getRelatedPosts(post);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-4 sm:py-8">
       <div className="flex gap-8">
         {/* Main Content */}
-        <article className="flex-1 min-w-0 bg-white rounded-lg shadow-lg p-8">
+        <article className="flex-1 min-w-0 bg-white rounded-lg shadow-lg p-4 sm:p-6 lg:p-8">
           {/* Post Header */}
           <header className="mb-8 pb-6 border-b border-gray-200">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 break-keep">{post.title}</h1>
 
-            <div className="flex items-center gap-4 text-gray-600 mb-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-600 mb-4">
               <time dateTime={post.date}>{formatDate(post.date)}</time>
               <span>•</span>
               <span>{post.readingTime}</span>
@@ -99,11 +99,11 @@ export default async function PostPage({ params }: PostPageProps) {
 
           {/* Post Content */}
           <div
-            className="prose prose-lg max-w-none
+            className="prose sm:prose-lg max-w-none
               prose-headings:font-bold prose-headings:text-gray-900 prose-headings:scroll-mt-20
-              prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-3
-              prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-              prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
+              prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-3
+              prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+              prose-h4:text-lg sm:prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
               prose-a:text-emerald-600 hover:prose-a:text-emerald-700"
             dangerouslySetInnerHTML={{ __html: content }}
           />

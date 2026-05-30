@@ -26,3 +26,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* 넓은 GFM 테이블이 화면을 넘칠 때 페이지 전체 가로 스크롤 대신
+   테이블 자체 영역에서만 스크롤되도록 처리 */
+.prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
