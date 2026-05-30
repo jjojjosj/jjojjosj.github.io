@@ -53,7 +53,7 @@ free-threaded Python은 "GIL을 없앤다"고 한 줄로 요약되지만, 웹 �
 
 ## 결과 1 — 단일 프로세스: 워크로드가 운명을 가른다
 
-![단일 프로세스 처리량 비교](https://github.com/user-attachments/assets/16cc1d39-bd1a-4068-b906-bad0dcf7e369)
+![단일 프로세스 처리량 비교](/assets/img/throughput_workers1.png)
 
 단일 워커(`--workers 1`)에서 동시연결 200일 때:
 
@@ -93,7 +93,7 @@ threadpool 스레드들이 여러 코어로 퍼져 CPU를 **100%**까지 끌어�
 
 "그럼 그냥 워커를 6개 띄우면 GIL 빌드도 멀티코어 쓰잖아?" 맞다. 그래서 격차가 줄어든다.
 
-![멀티워커(6) 처리량 비교](https://github.com/user-attachments/assets/eb56b558-73f0-43eb-a5c3-dd015afed6c9)
+![멀티워커(6) 처리량 비교](/assets/img/throughput_workers6.png)
 
 `cpu_sync` 기준 free-threading 배수는 워커를 늘리면 확 줄어든다.
 
