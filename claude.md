@@ -28,8 +28,8 @@ Here are the specific commands:
 
 ### 사이트 정보
 
-- **제목**: jjojjosj의 일상다반사
-- **설명**: jjojjosj의 길고도 짧은 소소한 이야기들
+- **제목**: 컴저씨 블로그
+- **설명**: 컴저씨가 쓰는 길고도 짧은 소소한 이야기들
 - **URL**: https://jjojjosj.github.io
 - **타임존**: Asia/Seoul
 

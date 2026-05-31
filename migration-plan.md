@@ -3,12 +3,14 @@
 ## 현재 상태 분석
 
 ### 콘텐츠 현황
+
 - **포스트**: 18개 (2019~2023)
 - **카테고리**: IT, Python
 - **페이지**: About, Categories, Tags, 404
 - **이미지**: 3개 (user.png, linkedlist.png, node.png)
 
 ### 주요 기능
+
 - ✅ Markdown 포스트
 - ✅ 카테고리/태그 시스템
 - ✅ Lunr.js 검색
@@ -24,6 +26,7 @@
 ### Phase 1: 프로젝트 초기 설정
 
 #### 1.1 Next.js 프로젝트 생성
+
 ```bash
 # 새 브랜치 생성
 git checkout -b nextjs-migration
@@ -33,20 +36,23 @@ npx create-next-app@latest . --typescript --tailwind --app --src-dir
 ```
 
 **선택 옵션:**
+
 - TypeScript: Yes
 - ESLint: Yes
 - Tailwind CSS: Yes
 - src/ directory: Yes
 - App Router: Yes
-- Import alias: Yes (@/*)
+- Import alias: Yes (@/\*)
 
 #### 1.2 필수 패키지 설치
+
 ```bash
 npm install gray-matter remark remark-html remark-gfm rehype-highlight reading-time date-fns
 npm install -D @types/node
 ```
 
 **추가 검토 필요 패키지:**
+
 ```bash
 # 검색 기능
 npm install flexsearch  # 또는 Lunr.js 유지
@@ -147,6 +153,7 @@ jjojjosj.github.io/
 ### Phase 3: 콘텐츠 마이그레이션
 
 #### 3.1 포스트 파일 이동
+
 ```bash
 # _posts → content/posts
 mkdir -p content/posts
@@ -155,7 +162,9 @@ cp _posts/*.markdown content/posts/
 ```
 
 #### 3.2 Front Matter 형식 유지
+
 **현재 형식 (Jekyll):**
+
 ```yaml
 ---
 title: "포스트 제목"
@@ -170,6 +179,7 @@ toc_sticky: true
 **Next.js에서도 동일하게 사용 가능** (gray-matter로 파싱)
 
 #### 3.3 이미지 및 리소스 이동
+
 ```bash
 # assets/img → public/assets/img
 mkdir -p public/assets/img
@@ -177,18 +187,20 @@ cp assets/img/*.png public/assets/img/
 ```
 
 **마크다운 이미지 경로 업데이트:**
+
 - 기존: `/assets/img/image.png`
 - 유지: `/assets/img/image.png` (public이 루트)
 
 ### Phase 4: 핵심 기능 구현
 
 #### 4.1 Markdown 파싱 (`lib/markdown.ts`)
+
 ```typescript
-import { remark } from 'remark';
-import html from 'remark-html';
-import gfm from 'remark-gfm';
-import remarkToc from 'remark-toc';
-import rehypeHighlight from 'rehype-highlight';
+import { remark } from "remark";
+import html from "remark-html";
+import gfm from "remark-gfm";
+import remarkToc from "remark-toc";
+import rehypeHighlight from "rehype-highlight";
 
 export async function markdownToHtml(markdown: string) {
   const result = await remark()
@@ -202,13 +214,14 @@ export async function markdownToHtml(markdown: string) {
 ```
 
 #### 4.2 포스트 데이터 처리 (`lib/posts.ts`)
-```typescript
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import readingTime from 'reading-time';
 
-const postsDirectory = path.join(process.cwd(), 'content/posts');
+```typescript
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import readingTime from "reading-time";
+
+const postsDirectory = path.join(process.cwd(), "content/posts");
 
 export interface Post {
   slug: string;
@@ -225,11 +238,13 @@ export interface Post {
 export function getAllPosts(): Post[] {
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames
-    .filter(fileName => fileName.endsWith('.md') || fileName.endsWith('.markdown'))
-    .map(fileName => {
-      const slug = fileName.replace(/\.(md|markdown)$/, '');
+    .filter(
+      (fileName) => fileName.endsWith(".md") || fileName.endsWith(".markdown"),
+    )
+    .map((fileName) => {
+      const slug = fileName.replace(/\.(md|markdown)$/, "");
       const fullPath = path.join(postsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data, content } = matter(fileContents);
 
       return {
@@ -257,15 +272,16 @@ export function getPostsByTag(tag: string): Post[] {
 ```
 
 #### 4.3 카테고리/태그 처리
+
 ```typescript
 // lib/categories.ts
 export function getAllCategories() {
   const posts = getAllPosts();
   const categories = new Set<string>();
 
-  posts.forEach(post => {
+  posts.forEach((post) => {
     if (post.categories) {
-      post.categories.forEach(cat => categories.add(cat));
+      post.categories.forEach((cat) => categories.add(cat));
     }
   });
 
@@ -276,19 +292,21 @@ export function getAllCategories() {
 ```
 
 #### 4.4 검색 기능
+
 **옵션 1: Lunr.js 유지**
+
 ```typescript
 // lib/search.ts
-import lunr from 'lunr';
+import lunr from "lunr";
 
 export function createSearchIndex(posts: Post[]) {
-  return lunr(function() {
-    this.ref('slug');
-    this.field('title');
-    this.field('content');
-    this.field('tags');
+  return lunr(function () {
+    this.ref("slug");
+    this.field("title");
+    this.field("content");
+    this.field("tags");
 
-    posts.forEach(post => {
+    posts.forEach((post) => {
       this.add(post);
     });
   });
@@ -296,11 +314,13 @@ export function createSearchIndex(posts: Post[]) {
 ```
 
 **옵션 2: FlexSearch (더 빠름)**
+
 ```typescript
-import { Index } from 'flexsearch';
+import { Index } from "flexsearch";
 ```
 
 #### 4.5 Table of Contents
+
 ```typescript
 // components/post/TableOfContents.tsx
 // remark-toc로 자동 생성하거나
@@ -308,6 +328,7 @@ import { Index } from 'flexsearch';
 ```
 
 #### 4.6 댓글 시스템
+
 ```typescript
 // components/common/Comments.tsx
 import { DiscussionEmbed } from 'disqus-react';
@@ -331,6 +352,7 @@ export function Comments({ slug, title }: { slug: string; title: string }) {
 ### Phase 5: 페이지 구현
 
 #### 5.1 홈페이지 (`app/page.tsx`)
+
 ```typescript
 import { getAllPosts } from '@/lib/posts';
 import PostCard from '@/components/post/PostCard';
@@ -355,6 +377,7 @@ export default async function Home() {
 ```
 
 #### 5.2 포스트 상세 (`app/posts/[slug]/page.tsx`)
+
 ```typescript
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import { markdownToHtml } from '@/lib/markdown';
@@ -384,6 +407,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
 ```
 
 #### 5.3 카테고리 페이지 (`app/categories/[category]/page.tsx`)
+
 ```typescript
 import { getAllCategories, getPostsByCategory } from '@/lib/categories';
 
@@ -409,41 +433,44 @@ export default async function CategoryPage({ params }: { params: { category: str
 ### Phase 6: 스타일링
 
 #### 6.1 Tailwind CSS 설정
+
 ```javascript
 // tailwind.config.ts
 module.exports = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
         // Minimal Mistakes 'mint' 스킨 색상 재현
-        primary: '#44b78b',
-        background: '#f3f6f6',
+        primary: "#44b78b",
+        background: "#f3f6f6",
         // ...
       },
     },
   },
   plugins: [
-    require('@tailwindcss/typography'), // prose 클래스
+    require("@tailwindcss/typography"), // prose 클래스
   ],
-}
+};
 ```
 
 #### 6.2 Typography 플러그인
+
 ```tsx
-<article className="prose prose-lg max-w-none">
-  {/* 마크다운 콘텐츠 */}
-</article>
+<article className="prose prose-lg max-w-none">{/* 마크다운 콘텐츠 */}</article>
 ```
 
 ### Phase 7: SEO 및 메타데이터
 
 #### 7.1 메타데이터 생성
+
 ```typescript
 // app/posts/[slug]/page.tsx
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const post = getPostBySlug(params.slug);
 
   return {
@@ -452,13 +479,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      type: 'article',
+      type: "article",
       publishedTime: post.date,
-      authors: ['jjojjosj'],
+      authors: ["jjojjosj"],
       tags: post.tags,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
     },
@@ -467,14 +494,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 ```
 
 #### 7.2 사이트맵 생성
+
 ```javascript
 // next-sitemap.config.js
 module.exports = {
-  siteUrl: 'https://jjojjosj.github.io',
+  siteUrl: "https://jjojjosj.github.io",
   generateRobotsTxt: true,
-  changefreq: 'weekly',
+  changefreq: "weekly",
   priority: 0.7,
-}
+};
 ```
 
 ```json
@@ -487,24 +515,25 @@ module.exports = {
 ```
 
 #### 7.3 RSS 피드
+
 ```typescript
 // app/feed.xml/route.ts
-import { Feed } from 'feed';
-import { getAllPosts } from '@/lib/posts';
+import { Feed } from "feed";
+import { getAllPosts } from "@/lib/posts";
 
 export async function GET() {
   const posts = getAllPosts();
 
   const feed = new Feed({
-    title: 'jjojjosj의 일상다반사',
-    description: 'jjojjosj의 길고도 짧은 소소한 이야기들',
-    id: 'https://jjojjosj.github.io',
-    link: 'https://jjojjosj.github.io',
-    language: 'ko',
+    title: "컴저씨 블로그",
+    description: "컴저씨가 쓰는 길고도 짧은 소소한 이야기들",
+    id: "https://jjojjosj.github.io",
+    link: "https://jjojjosj.github.io",
+    language: "ko",
     // ...
   });
 
-  posts.forEach(post => {
+  posts.forEach((post) => {
     feed.addItem({
       title: post.title,
       id: `https://jjojjosj.github.io/posts/${post.slug}`,
@@ -516,7 +545,7 @@ export async function GET() {
 
   return new Response(feed.rss2(), {
     headers: {
-      'Content-Type': 'application/xml',
+      "Content-Type": "application/xml",
     },
   });
 }
@@ -525,6 +554,7 @@ export async function GET() {
 ### Phase 8: 배포 설정
 
 #### 8.1 GitHub Pages 설정
+
 **옵션 1: GitHub Actions (추천)**
 
 ```yaml
@@ -544,7 +574,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: npm ci
@@ -563,21 +593,23 @@ jobs:
 ```
 
 **next.config.js 설정:**
+
 ```javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Static HTML export
+  output: "export", // Static HTML export
   images: {
-    unoptimized: true,  // GitHub Pages는 Image Optimization 미지원
+    unoptimized: true, // GitHub Pages는 Image Optimization 미지원
   },
-  basePath: '',  // 또는 '/repository-name' (커스텀 도메인이 아닌 경우)
+  basePath: "", // 또는 '/repository-name' (커스텀 도메인이 아닌 경우)
   trailingSlash: true,
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
 ```
 
 #### 8.2 Static Export
+
 ```json
 // package.json
 {
@@ -594,6 +626,7 @@ module.exports = nextConfig
 ### Phase 9: 테스트 및 검증
 
 #### 9.1 체크리스트
+
 - [ ] 모든 포스트가 정상적으로 표시되는가?
 - [ ] 카테고리/태그 필터링이 작동하는가?
 - [ ] 검색 기능이 작동하는가?
@@ -608,6 +641,7 @@ module.exports = nextConfig
 - [ ] RSS 피드가 작동하는가?
 
 #### 9.2 성능 최적화
+
 - [ ] Lighthouse 점수 확인 (Performance, SEO, Accessibility)
 - [ ] Core Web Vitals 최적화
 - [ ] 이미지 최적화 (WebP 변환)
@@ -617,6 +651,7 @@ module.exports = nextConfig
 ### Phase 10: 마이그레이션 완료
 
 #### 10.1 최종 배포
+
 ```bash
 # 빌드 및 테스트
 npm run build
@@ -635,6 +670,7 @@ gh pr create --title "Migrate to Next.js" --base master
 ```
 
 #### 10.2 기존 Jekyll 백업
+
 ```bash
 # 기존 Jekyll 설정 백업
 git checkout -b jekyll-backup
@@ -643,23 +679,24 @@ git push origin jekyll-backup
 
 ## 예상 타임라인
 
-| Phase | 작업 내용 | 예상 시간 |
-|-------|----------|---------|
-| 1 | 프로젝트 초기 설정 | 1일 |
-| 2 | 프로젝트 구조 설계 | 1일 |
-| 3 | 콘텐츠 마이그레이션 | 1일 |
-| 4 | 핵심 기능 구현 | 3일 |
-| 5 | 페이지 구현 | 2일 |
-| 6 | 스타일링 | 2일 |
-| 7 | SEO 및 메타데이터 | 1일 |
-| 8 | 배포 설정 | 1일 |
-| 9 | 테스트 및 검증 | 2일 |
-| 10 | 마이그레이션 완료 | 1일 |
-| **총계** | | **약 15일** |
+| Phase    | 작업 내용           | 예상 시간   |
+| -------- | ------------------- | ----------- |
+| 1        | 프로젝트 초기 설정  | 1일         |
+| 2        | 프로젝트 구조 설계  | 1일         |
+| 3        | 콘텐츠 마이그레이션 | 1일         |
+| 4        | 핵심 기능 구현      | 3일         |
+| 5        | 페이지 구현         | 2일         |
+| 6        | 스타일링            | 2일         |
+| 7        | SEO 및 메타데이터   | 1일         |
+| 8        | 배포 설정           | 1일         |
+| 9        | 테스트 및 검증      | 2일         |
+| 10       | 마이그레이션 완료   | 1일         |
+| **총계** |                     | **약 15일** |
 
 ## 고려사항 및 의사결정 포인트
 
 ### 1. 스타일링 방법
+
 - **옵션 A**: Tailwind CSS (추천)
   - 장점: 빠른 개발, 유틸리티 우선, 번들 사이즈 최적화
   - 단점: 클래스명이 길어질 수 있음
@@ -671,6 +708,7 @@ git push origin jekyll-backup
   - 단점: 런타임 오버헤드, SSR 복잡도
 
 ### 2. 검색 엔진
+
 - **옵션 A**: Lunr.js (기존 유지)
   - 장점: 이미 익숙함, 클라이언트 사이드
   - 단점: 인덱스 크기 증가 시 성능 저하
@@ -682,14 +720,17 @@ git push origin jekyll-backup
   - 단점: 유료 (무료 플랜 제한적), 외부 의존성
 
 ### 3. MDX vs Markdown
+
 - **Markdown (추천)**: 현재 콘텐츠 유지, 간단함
 - **MDX**: React 컴포넌트 사용 가능, 더 유연함
 
 ### 4. 이미지 최적화
+
 - GitHub Pages는 Next.js Image Optimization API 미지원
 - 대안: 빌드 타임에 이미지 최적화 또는 외부 CDN 사용
 
 ### 5. 댓글 시스템 대안
+
 - Disqus (기존 유지)
 - Giscus (GitHub Discussions 기반)
 - Utterances (GitHub Issues 기반)
@@ -697,6 +738,7 @@ git push origin jekyll-backup
 ## 롤백 계획
 
 마이그레이션 중 문제 발생 시:
+
 1. `jekyll-backup` 브랜치로 롤백
 2. GitHub Pages 설정에서 브랜치 변경
 3. 문제 해결 후 재시도
