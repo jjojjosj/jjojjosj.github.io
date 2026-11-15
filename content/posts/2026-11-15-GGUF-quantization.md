@@ -1,6 +1,9 @@
 ---
 title: "GGUF 양자화 원리와 압축 방식의 진화"
 date: 2026-11-15 11:30:00 +0900
+toc: true
+toc_sticky: true
+toc_label: "My Table of Contents"
 tags: ["AI"]
 categories: [AI]
 ---
