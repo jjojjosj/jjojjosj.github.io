@@ -2,6 +2,8 @@ import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import gfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -9,7 +11,9 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 export async function markdownToHtml(markdown: string): Promise<string> {
   const result = await remark()
     .use(gfm) // GitHub Flavored Markdown
+    .use(remarkMath) // $inline$ / $$block$$ math
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeKatex)
     .use(rehypeSlug) // Add IDs to headings
     .use(rehypeAutolinkHeadings) // Add links to headings
     .use(rehypeHighlight) // Syntax highlighting

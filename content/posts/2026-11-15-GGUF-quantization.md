@@ -24,9 +24,9 @@ GGUF는 llama.cpp가 쓰는 단일 파일 모델 포맷이고, 핵심 가치는 
 
 가중치 전체를 한 번에 양자화하지 않고, 32개(또는 16개) 단위 **블록**으로 자릅니다. 블록마다 값의 범위에 맞는 스케일(d)을 구하고, 각 가중치를 그 스케일 단위의 정수(q)로 반올림합니다.
 
-```latex
+$$
 w \approx d \cdot q \quad (\text{대칭, Type 0}) \qquad w \approx d \cdot q + m \quad (\text{비대칭, Type 1})
-```
+$$
 
 - 블록을 작게 나눌수록 이상치(outlier) 하나가 다른 값들의 정밀도를 망치는 범위가 좁아집니다.
 - 대신 블록마다 스케일을 저장해야 하므로, 실제 용량은 “명목 비트 + 스케일 오버헤드”입니다. 예를 들어 Q4\_0은 32개당 FP16 스케일 1개를 더해 실제 4.5 bpw(bits per weight)입니다.
@@ -212,9 +212,9 @@ GPTQ를 만든 ISTA(오스트리아 과학기술연구소) DAS Lab의 방법으�
 
 NVFP4는 정수가 아닌 4비트 **부동소수점**(E2M1) 값에 2단 스케일을 붙인 형식으로, Blackwell 5세대 텐서 코어가 이 형식 그대로 행렬 곱을 수행합니다. ([NVIDIA 블로그](https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference))
 
-```latex
+$$
 x = x_{\mathrm{E2M1}} \times s_{\mathrm{block}}^{(\mathrm{E4M3},\ 16\ \text{개당})} \times s_{\mathrm{global}}^{(\mathrm{FP32},\ \text{텐서당})}
-```
+$$
 
 - **요소:** E2M1(부호 1, 지수 2, 가수 1비트)로 약 ±6 범위의 비균등 값을 표현합니다.
 - **1차 스케일:** 16개마다 FP8(E4M3) 스케일 1개. 2의 거듭제곱만 되는 MXFP4(E8M0)와 달리 소수점 비율까지 표현해 블록 오차가 작습니다.
